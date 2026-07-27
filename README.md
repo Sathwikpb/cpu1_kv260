@@ -51,6 +51,10 @@ python tools/emulator_cpu4.py programs/demo_cpu4.mem --trace
 
 ## Vivado
 
+Open `cpu4_kv260.xpr` in Vivado 2026.1 for the GUI project. To recreate the
+project file from the checked-in RTL and constraints, run:
+
 ```bash
+vivado -mode batch -source vivado/create_project.tcl
 vivado -mode batch -source vivado/run_simulation.tcl
 vivado -mode batch -source vivado/build_bitstream.tcl

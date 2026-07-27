@@ -1,6 +1,5 @@
 set script_dir [file dirname [file normalize [info script]]]
 set project_root [file normalize [file join $script_dir ..]]
-set build_dir [file join $project_root build]
 
 if {[info exists ::env(FPGA_PART)]} {
     set fpga_part $::env(FPGA_PART)
@@ -9,8 +8,7 @@ if {[info exists ::env(FPGA_PART)]} {
     set fpga_part "xck26-sfvc784-2lv-c"
 }
 
-file mkdir $build_dir
-create_project cpu4_kv260 [file join $build_dir cpu4_kv260] -part $fpga_part -force
+create_project cpu4_kv260 $project_root -part $fpga_part -force
 set_property target_language Verilog [current_project]
 set_property simulator_language Mixed [current_project]
 
@@ -33,5 +31,5 @@ set_property top tb_cpu4_core [get_filesets sim_1]
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
 
-puts "Created CPU4 KV260 project at [file join $build_dir cpu4_kv260]"
+puts "Created CPU4 KV260 project at [file join $project_root cpu4_kv260.xpr]"
 puts "Target part: $fpga_part"
